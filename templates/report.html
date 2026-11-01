@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Report Lost or Found Item &bull; Campus Lost &amp; Found{% endblock %}
+
+{% block content %}
+<div style="max-width: 650px; margin: 20px auto;">
+    <div class="card">
+        <h2 style="font-size: 22px; margin-bottom: 8px;">Report an Item on Campus</h2>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">
+            Fill in the details below. Our smart match algorithm will cross-check existing reports.
+        </p>
+
+        <form method="POST" action="{{ url_for('report_item') }}" enctype="multipart/form-data">
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 8px;">Report Type *</label>
+                <div style="display: flex; gap: 24px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="type" value="lost" checked>
+                        <span>🔴 <strong>I Lost An Item</strong></span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="type" value="found">
+                        <span>🟢 <strong>I Found An Item</strong></span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Item Title *</label>
+                <input type="text" name="title" required placeholder="e.g. Casio Calculator, Blue Milton Bottle, Student ID Card" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px;">
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Category *</label>
+                    <select name="category" required style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px;">
+                        <option value="">Select Category...</option>
+                        <option value="Electronics">Electronics &amp; Accessories</option>
+                        <option value="ID Card / Documents">ID Card / Academic Documents</option>
+                        <option value="Bags & Wallets">Bags &amp; Wallets</option>
+                        <option value="Books & Stationery">Books &amp; Stationery</option>
+                        <option value="Keys">Keys</option>
+                        <option value="Personal Belongings">Personal Belongings / Bottles</option>
+                        <option value="Clothing">Clothing / Wearables</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Date Lost / Found *</label>
+                    <input type="date" name="item_date" required style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px;">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Campus Location *</label>
+                <input type="text" name="location" required placeholder="e.g. Central Library 2nd Floor, LT-102, Cafeteria Counter" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px;">
+            </div>
+
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Description &amp; Identifying Details</label>
+                <textarea name="description" rows="4" placeholder="Mention color, brand, unique markings, scratches, or distinguishing features..." style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px;"></textarea>
+            </div>
+
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Upload Item Photo (Optional)</label>
+                <input type="file" name="image" accept="image/*" style="font-size: 13px;">
+                <small style="display: block; color: var(--text-muted); margin-top: 4px;">PNG, JPG, or WEBP up to 5MB.</small>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline">Cancel</a>
+                <button type="submit" class="btn btn-primary">Publish Report &rarr;</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

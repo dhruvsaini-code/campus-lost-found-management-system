@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Claims &amp; Verification &bull; Campus Lost &amp; Found{% endblock %}
+
+{% block content %}
+<style>
+    .claim-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px;
+        margin-bottom: 16px;
+    }
+</style>
+
+<div style="margin-bottom: 24px;">
+    <h1 style="font-size: 24px; margin-bottom: 6px;">Claims &amp; Verification Panel</h1>
+    <p style="font-size: 14px; color: var(--text-muted);">
+        Sprint 4 Workflow: Manage ownership claims on found items, verify proof, and mark returned.
+    </p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+    <!-- Claims Received (Items you found that someone claimed) -->
+    <div>
+        <h2 style="font-size: 18px; margin-bottom: 14px; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+            <span>📥</span> Claims Received (Review &amp; Verify)
+        </h2>
+        {% if received_claims %}
+            {% for rc in received_claims %}
+            <div class="claim-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <strong>{{ rc.item_title }}</strong>
+                    <span class="badge badge-{{ rc.status|lower }}">{{ rc.status }}</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+                    Claimed by: <strong>{{ rc.claimer_name }}</strong> ({{ rc.claimer_email }})<br>
+                    Phone: {{ rc.contact_phone or 'Not provided' }} &bull; Submitted: {{ rc.created_at }}
+                </div>
+                <div style="background: #f8fafc; padding: 10px; border-radius: 6px; font-size: 13px; margin-bottom: 12px; border: 1px solid var(--border);">
+                    <strong>Claimant Proof Description:</strong><br>
+                    {{ rc.proof_description }}
+                </div>
+                <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    {% if rc.status == 'Pending' %}
+                    <form method="POST" action="{{ url_for('claim_action', claim_id=rc.id) }}">
+                        <input type="hidden" name="action" value="reject">
+                        <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('claim_action', claim_id=rc.id) }}">
+                        <input type="hidden" name="action" value="verify">
+                        <button type="submit" class="btn btn-sm btn-success">Verify Proof &amp; Accept</button>
+                    </form>
+                    {% elif rc.status == 'Verified' %}
+                    <form method="POST" action="{{ url_for('claim_action', claim_id=rc.id) }}">
+                        <input type="hidden" name="action" value="return">
+                        <button type="submit" class="btn btn-sm btn-primary">Mark as Handed Over &amp; RETURNED</button>
+                    </form>
+                    {% else %}
+                    <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Handoff Complete</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                No incoming claims on items you found.
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Claims Sent (Items you claimed) -->
+    <div>
+        <h2 style="font-size: 18px; margin-bottom: 14px; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+            <span>📤</span> My Submitted Claims
+        </h2>
+        {% if sent_claims %}
+            {% for sc in sent_claims %}
+            <div class="claim-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <strong>{{ sc.item_title }}</strong>
+                    <span class="badge badge-{{ sc.status|lower }}">{{ sc.status }}</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+                    Category: {{ sc.category }} &bull; Location: {{ sc.location }}
+                </div>
+                <div style="background: #f8fafc; padding: 10px; border-radius: 6px; font-size: 13px; margin-bottom: 8px; border: 1px solid var(--border);">
+                    <strong>My Proof Submitted:</strong><br>
+                    {{ sc.proof_description }}
+                </div>
+                <div style="font-size: 12px; color: var(--text-muted);">
+                    Status: 
+                    {% if sc.status == 'Pending' %}
+                        <span style="color: #b45309; font-weight: 600;">Pending finder verification</span>
+                    {% elif sc.status == 'Verified' %}
+                        <span style="color: #15803d; font-weight: 600;">Approved! Please meet the finder to collect.</span>
+                    {% elif sc.status == 'Returned' %}
+                        <span style="color: #334155; font-weight: 600;">Closed - Item recovered!</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                You haven't submitted any ownership claims yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

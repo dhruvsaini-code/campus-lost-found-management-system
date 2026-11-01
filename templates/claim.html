@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Claim Item &bull; Campus Lost &amp; Found{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 24px auto;">
+    <div class="card">
+        <span class="badge badge-found" style="margin-bottom: 8px;">Claiming Found Item</span>
+        <h2 style="font-size: 22px; margin-bottom: 6px;">{{ item.title }}</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Found at: <strong>{{ item.location }}</strong> &bull; Date: <strong>{{ item.item_date }}</strong> &bull; Reporter: {{ item.reporter_name }}
+        </p>
+
+        <div style="background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; border-left: 4px solid var(--primary);">
+            <strong>Ownership Verification Notice:</strong><br>
+            To prevent false claims, please describe unique characteristics not visible in public descriptions (such as stickers, wallpaper, passcode, contents, purchase invoice, serial number).
+        </div>
+
+        <form method="POST" action="{{ url_for('claim_item', item_id=item.id) }}">
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Detailed Proof of Ownership *</label>
+                <textarea name="proof_description" required rows="5" placeholder="Specify unique marks, engraved initials, exact color shade, contents inside, or specific identification that proves this item belongs to you..." style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px;"></textarea>
+            </div>
+
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px;">Contact Phone / Student WhatsApp (Optional)</label>
+                <input type="text" name="contact_phone" placeholder="+91 9876543210" style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px;">
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <a href="{{ url_for('browse_items') }}" class="btn btn-outline">Cancel</a>
+                <button type="submit" class="btn btn-primary">Submit Ownership Claim &rarr;</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

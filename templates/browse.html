@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Browse &amp; Search &bull; Campus Lost &amp; Found{% endblock %}
+
+{% block content %}
+<style>
+    .filter-panel {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        margin-bottom: 24px;
+    }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr auto;
+        gap: 12px;
+        align-items: end;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 9px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+    }
+
+    .feed-card {
+        background: white;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feed-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .feed-card-img {
+        width: 100%;
+        height: 170px;
+        background: #f8fafc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        border-bottom: 1px solid var(--border);
+        object-fit: cover;
+    }
+
+    .feed-card-body {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
+
+<div class="filter-panel">
+    <form method="GET" action="{{ url_for('browse_items') }}">
+        <div class="filter-grid">
+            <div>
+                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Search Keywords</label>
+                <input type="text" name="q" value="{{ query }}" placeholder="Search by title, description, location..." class="form-control">
+            </div>
+            <div>
+                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Category</label>
+                <select name="category" class="form-control">
+                    <option value="all">All Categories</option>
+                    <option value="Electronics" {% if category == 'Electronics' %}selected{% endif %}>Electronics</option>
+                    <option value="ID Card / Documents" {% if category == 'ID Card / Documents' %}selected{% endif %}>ID Card / Documents</option>
+                    <option value="Bags & Wallets" {% if category == 'Bags & Wallets' %}selected{% endif %}>Bags &amp; Wallets</option>
+                    <option value="Books & Stationery" {% if category == 'Books & Stationery' %}selected{% endif %}>Books &amp; Stationery</option>
+                    <option value="Keys" {% if category == 'Keys' %}selected{% endif %}>Keys</option>
+                    <option value="Personal Belongings" {% if category == 'Personal Belongings' %}selected{% endif %}>Personal Belongings</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Type</label>
+                <select name="type" class="form-control">
+                    <option value="all" {% if item_type == 'all' %}selected{% endif %}>All Types</option>
+                    <option value="lost" {% if item_type == 'lost' %}selected{% endif %}>Lost Items Only</option>
+                    <option value="found" {% if item_type == 'found' %}selected{% endif %}>Found Items Only</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">Status</label>
+                <select name="status" class="form-control">
+                    <option value="all">All Statuses</option>
+                    <option value="Open" {% if status == 'Open' %}selected{% endif %}>Open</option>
+                    <option value="Claim Submitted" {% if status == 'Claim Submitted' %}selected{% endif %}>Claim Submitted</option>
+                    <option value="Returned" {% if status == 'Returned' %}selected{% endif %}>Returned</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" style="padding: 10px 18px;">Apply Filters</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <h2 style="font-size: 20px;">Campus Item Feed ({{ items|length }} listings found)</h2>
+    <a href="{{ url_for('report_item') }}" class="btn btn-primary btn-sm">+ Post New Listing</a>
+</div>
+
+{% if items %}
+<div class="items-grid">
+    {% for it in items %}
+    <div class="feed-card">
+        {% if it.image_filename %}
+            <img src="{{ url_for('static', filename='uploads/' + it.image_filename) }}" class="feed-card-img" alt="{{ it.title }}">
+        {% else %}
+            <div class="feed-card-img">
+                {% if it.category == 'Electronics' %}💻
+                {% elif it.category == 'Keys' %}🔑
+                {% elif it.category == 'ID Card / Documents' %}🪪
+                {% elif it.category == 'Books & Stationery' %}📚
+                {% else %}📦{% endif %}
+            </div>
+        {% endif %}
+        <div class="feed-card-body">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span class="badge badge-{{ it.type }}">{{ it.type }}</span>
+                    <span class="badge badge-{{ it.status|lower|replace(' ', '-') }}">{{ it.status }}</span>
+                </div>
+                <h3 style="font-size: 17px; margin-bottom: 6px;">{{ it.title }}</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">
+                    📍 {{ it.location }}<br>
+                    🗓 {{ it.item_date }} &bull; Reported by {{ it.reporter_name }}
+                </p>
+                {% if it.description %}
+                <p style="font-size: 13px; color: #475569; margin-bottom: 14px; background: #f8fafc; padding: 8px; border-radius: 6px;">
+                    {{ it.description }}
+                </p>
+                {% endif %}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 8px;">
+                <span style="font-size: 12px; color: var(--text-muted);">{{ it.category }}</span>
+                {% if it.type == 'found' and it.student_id != session.get('student_id') and it.status == 'Open' %}
+                    <a href="{{ url_for('claim_item', item_id=it.id) }}" class="btn btn-sm btn-primary">Claim Item &rarr;</a>
+                {% elif it.status == 'Returned' %}
+                    <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Returned &amp; Closed</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card" style="text-align: center; padding: 48px; color: var(--text-muted);">
+    <p style="font-size: 16px; margin-bottom: 8px;">No items match your active filters.</p>
+    <a href="{{ url_for('browse_items') }}" class="btn btn-outline btn-sm">Clear All Filters</a>
+</div>
+{% endif %}
+{% endblock %}
+
