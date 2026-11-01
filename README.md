@@ -28,15 +28,18 @@
   4. `CLFM - Active Sprint 4 Issues`: `project = CLFM AND sprint = 149 ORDER BY Rank ASC` (Filter ID: 10121)
 
 ### Sprints Summary (Jira Cloud Board 109 Cadence)
-| Sprint | Name | Jira Dates | Committed Pts | Completed Pts | Goal Met |
+| Sprint | Name | Jira Calendar Dates | Committed Pts (Backlog) | Completed Pts (Delivered) | Goal Met |
 |---|---|---|---|---|---|
 | Sprint 1 | Sprint 1 | 05 Oct 2026 – 16 Oct 2026 | 6 | 6 | Yes (100%) |
 | Sprint 2 | Sprint 2 | 19 Oct 2026 – 30 Oct 2026 | 20 | 20 | Yes (100%) |
 | Sprint 3 | Sprint 3 | 02 Nov 2026 – 13 Nov 2026 | 13 | 13 | Yes (100%) |
 | Sprint 4 | Sprint 4 | 19 Oct 2026 – 30 Oct 2026 | 10 | 10 | Yes (100%) |
-| **Total** | **4 Sprints** | **Oct – Nov 2026** | **49** | **49** | **100% (Avg Velocity: 12.25 pts)** |
+| **Total** | **4 Sprints** | **Oct – Nov 2026** | **49** | **49** | **100% (Delivered Avg: 12.25 pts)** |
 
-*Note on Sprint Dates: Sprints 1, 2, and 4 cover the October delivery window (Sprint 4 executed concurrently for the final claim/return modules), with Sprint 3 modeled across the planned early November window in Jira. All 15 user stories (49 story points) are 100% completed as of the 01 November 2026 submission milestone.*
+#### Retrospective Modeling & Discrepancy Disclosures:
+1. **Sprint Dates Disclosure**: The dates in Jira Cloud (S1: 05–16 Oct, S2: 19–30 Oct, S3: 02–13 Nov, S4: 19–30 Oct) reflect retrospective scheduling created in Jira on 01 November 2026. Because Jira Cloud permanently locks closed sprints and disallows editing dates on closed sprints, Sprints 2 and 4 share calendar dates in Jira, and Sprint 3 is dated to conclude on 13 Nov (after the 01 Nov evaluation submission date). In actual implementation, all 15 user stories and 49 story points were developed, tested, and marked Done prior to the 01 November 2026 Phase 2 milestone.
+2. **Velocity Chart Disclosure**: In Jira's Velocity Chart (Figures 19 and 33), Jira recorded Sprint 1 = 0, Sprint 2 = 0, Sprint 3 = 0, and Sprint 4 = 10 (chart average = 2.5 pts). Jira only captured Sprint 4 because story points for Sprints 1–3 were entered after those sprints were closed in Jira. The actual delivered velocity of the project comes from the sprint backlog tables and working application deliverables: Sprint 1 = 6 pts, Sprint 2 = 20 pts, Sprint 3 = 13 pts, Sprint 4 = 10 pts, totaling 49 points (true average = 12.25 points per sprint).
+3. **Commit History Disclosure**: Sprint 1 was committed individually (commit `5e7f3f3`). Sprints 2, 3, and 4 were developed and verified iteratively during local testing and committed together to GitHub at the end in commit `096307f` prior to final Phase 2 submission, followed by documentation updates in commits `2819ded` and `cca45e2`.
 
 ### Agile Labs (L1–L8) Governance Issues
 - **CLFM-21**: L1 - Compare Scrum vs Kanban Boards (Scrum Board 109 vs Kanban Board 111)
@@ -61,6 +64,7 @@ The application implements end-to-end deliverables across all 4 sprints:
 1. `5e7f3f3`: Implement Sprint 1 student authentication
 2. `096307f`: feat(sprint-2,3,4): Complete reporting forms, search & matching engine, and claim verification & return workflow (CLFM-9..20)
 3. `2819ded`: Update README with CLFM project keys, Dr. Sachin Kumar, and finalized sprint metrics
+4. `cca45e2`: docs: Finalize README with matching Jira dates, Dr. Sachin Kumar, and verified commit hashes
 
 ### How to Run Locally:
 ```bash
