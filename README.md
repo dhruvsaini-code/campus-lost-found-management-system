@@ -36,19 +36,19 @@
 | Sprint 4 | Sprint 4 | 19 Oct 2026 – 30 Oct 2026 | 10 | 10 | Yes (100%) |
 | **Total** | **4 Sprints** | **Oct – Nov 2026** | **49** | **49** | **100% (Delivered Avg: 12.25 pts)** |
 
-#### Retrospective Modeling & Discrepancy Disclosures:
-1. **Sprint Dates Disclosure**: The dates in Jira Cloud (S1: 05–16 Oct, S2: 19–30 Oct, S3: 02–13 Nov, S4: 19–30 Oct) reflect retrospective scheduling created in Jira on 01 November 2026. Because Jira Cloud permanently locks closed sprints and disallows editing dates on closed sprints, Sprints 2 and 4 share calendar dates in Jira, and Sprint 3 is dated to conclude on 13 Nov (after the 01 Nov evaluation submission date). In actual implementation, all 15 user stories and 49 story points were developed, tested, and marked Done prior to the 01 November 2026 Phase 2 milestone.
+#### Notes on Jira Data and Version Control:
+1. **Retrospective Sprint Dates**: The dates in Jira Cloud (Sprint 1: 05–16 Oct, Sprint 2: 19–30 Oct, Sprint 3: 02–13 Nov, Sprint 4: 19–30 Oct) reflect retrospective scheduling entered into Jira on 01 November 2026. Jira did not let me change the dates after closing, so Sprints 2 and 4 share calendar dates in Jira, and Sprint 3 is dated to end on 13 November (after the 01 November evaluation date), with its issues listed under "completed outside of this sprint". All 15 user stories and 49 story points were retrospectively recorded in Jira on 1 Nov.
 2. **Velocity Chart Disclosure**: In Jira's Velocity Chart (Figures 19 and 33), Jira recorded Sprint 1 = 0, Sprint 2 = 0, Sprint 3 = 0, and Sprint 4 = 10 (chart average = 2.5 pts). Jira only captured Sprint 4 because story points for Sprints 1–3 were entered after those sprints were closed in Jira. The actual delivered velocity of the project comes from the sprint backlog tables and working application deliverables: Sprint 1 = 6 pts, Sprint 2 = 20 pts, Sprint 3 = 13 pts, Sprint 4 = 10 pts, totaling 49 points (true average = 12.25 points per sprint).
-3. **Commit History Disclosure**: Sprint 1 was committed individually (commit `5e7f3f3`). Sprints 2, 3, and 4 were developed and verified iteratively during local testing and committed together to GitHub at the end in commit `096307f` prior to final Phase 2 submission, followed by documentation updates in commits `2819ded` and `cca45e2`.
+3. **Commit History**: Sprint 1 authentication was committed individually (commit `5e7f3f3`). Sprints 2, 3, and 4 were committed together to GitHub in batch commit `096307f` prior to submission, with subsequent documentation updates in commits `2819ded`, `cca45e2`, and `71e61be`. The working software deliverables in the application screenshots demonstrate the functionality of each sprint.
 
 ### Agile Labs (L1–L8) Governance Issues
 - **CLFM-21**: L1 - Compare Scrum vs Kanban Boards (Scrum Board 109 vs Kanban Board 111)
 - **CLFM-22**: L2 - Sprint Tracking with Burndown and Velocity Charts (Sprint Reports & Burndown analysis)
 - **CLFM-23**: L3 - Kanban Flow Analytics (CFD & Control Chart cycle times)
-- **CLFM-24**: L4 - JIRA Automation Rules Setup & Verification (Documented & audited)
+- **CLFM-24**: L4 - JIRA Automation Rules Setup & Verification (Auto-Assign & DoD audit rule)
 - **CLFM-25**: L5 - Advanced JQL Queries, Saved Filters & Subscription (4 Saved CLFM filters)
 - **CLFM-26**: L6 - Custom Project Health Dashboard (Dashboard 10001 provisioned)
-- **CLFM-27**: L7 - Custom Workflow with Statuses & Board Column Mapping (Lifecycle documented)
+- **CLFM-27**: L7 - Custom Workflow with Statuses & Board Column Mapping (5-stage claim verification lifecycle)
 - **CLFM-28**: L8 - Advanced Workflow Rules (Conditions, Validators & Post-Functions)
 
 ---
@@ -65,6 +65,7 @@ The application implements end-to-end deliverables across all 4 sprints:
 2. `096307f`: feat(sprint-2,3,4): Complete reporting forms, search & matching engine, and claim verification & return workflow (CLFM-9..20)
 3. `2819ded`: Update README with CLFM project keys, Dr. Sachin Kumar, and finalized sprint metrics
 4. `cca45e2`: docs: Finalize README with matching Jira dates, Dr. Sachin Kumar, and verified commit hashes
+5. `71e61be`: docs: Reconcile sprint dates retrospective disclosure, velocity mechanics, and commit history in README
 
 ### How to Run Locally:
 ```bash
