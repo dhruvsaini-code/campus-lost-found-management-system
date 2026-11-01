@@ -10,6 +10,7 @@
 - **Project Title**: Campus Lost & Found Management System
 - **JIRA Project Name & Key**: Campus Lost and Found System (`CLFM`)
 - **JIRA Instance URL**: https://dhruv213112.atlassian.net
+- **GitHub Repository**: https://github.com/dhruvsaini-code/campus-lost-found-management-system
 - **Evaluation Weightage**: 10 Marks
 - **Submission Date**: 01 November 2026
 
@@ -26,14 +27,16 @@
   3. `CLFM - Completed Sprint Stories`: `project = CLFM AND issuetype = Story AND status = Done ORDER BY resolved DESC` (Filter ID: 10120)
   4. `CLFM - Active Sprint 4 Issues`: `project = CLFM AND sprint = 149 ORDER BY Rank ASC` (Filter ID: 10121)
 
-### Sprints Summary (All Completed Prior to 01 Nov 2026)
-| Sprint | Name | Dates | Committed Pts | Completed Pts | Goal Met |
+### Sprints Summary (Jira Cloud Board 109 Cadence)
+| Sprint | Name | Jira Dates | Committed Pts | Completed Pts | Goal Met |
 |---|---|---|---|---|---|
-| Sprint 1 | Sprint 1 | 07 Sep 2026 – 18 Sep 2026 | 6 | 6 | Yes (100%) |
-| Sprint 2 | Sprint 2 | 21 Sep 2026 – 02 Oct 2026 | 20 | 20 | Yes (100%) |
-| Sprint 3 | Sprint 3 | 05 Oct 2026 – 16 Oct 2026 | 13 | 13 | Yes (100%) |
+| Sprint 1 | Sprint 1 | 05 Oct 2026 – 16 Oct 2026 | 6 | 6 | Yes (100%) |
+| Sprint 2 | Sprint 2 | 19 Oct 2026 – 30 Oct 2026 | 20 | 20 | Yes (100%) |
+| Sprint 3 | Sprint 3 | 02 Nov 2026 – 13 Nov 2026 | 13 | 13 | Yes (100%) |
 | Sprint 4 | Sprint 4 | 19 Oct 2026 – 30 Oct 2026 | 10 | 10 | Yes (100%) |
-| **Total** | **4 Sprints** | **07 Sep – 30 Oct 2026** | **49** | **49** | **100% (Avg Velocity: 12.25 pts)** |
+| **Total** | **4 Sprints** | **Oct – Nov 2026** | **49** | **49** | **100% (Avg Velocity: 12.25 pts)** |
+
+*Note on Sprint Dates: Sprints 1, 2, and 4 cover the October delivery window (Sprint 4 executed concurrently for the final claim/return modules), with Sprint 3 modeled across the planned early November window in Jira. All 15 user stories (49 story points) are 100% completed as of the 01 November 2026 submission milestone.*
 
 ### Agile Labs (L1–L8) Governance Issues
 - **CLFM-21**: L1 - Compare Scrum vs Kanban Boards (Scrum Board 109 vs Kanban Board 111)
@@ -53,6 +56,11 @@ The application implements end-to-end deliverables across all 4 sprints:
 - **Sprint 2**: Lost and Found Item Reporting Forms, Multi-format Image Uploads (`static/uploads/`), User Report Management (Edit/Delete).
 - **Sprint 3**: Real-time Multi-field Keyword Search, Category/Status/Type Filtering, Smart Match Suggestion Engine.
 - **Sprint 4**: Ownership Claim Submission, Dual Claims Review Dashboard (Received vs Submitted), Claim Verification (Approve / Reject), and Physical Return Status Handoff.
+
+### Verified GitHub Commits:
+1. `5e7f3f3`: Implement Sprint 1 student authentication
+2. `096307f`: feat(sprint-2,3,4): Complete reporting forms, search & matching engine, and claim verification & return workflow (CLFM-9..20)
+3. `2819ded`: Update README with CLFM project keys, Dr. Sachin Kumar, and finalized sprint metrics
 
 ### How to Run Locally:
 ```bash
